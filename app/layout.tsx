@@ -1,10 +1,7 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import ModalProvider from "@/providers/modal-provider";
+
 import "./globals.css";
 
 export default function RootLayout({
@@ -16,13 +13,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <header>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn></SignedIn>
-          </header>
-          <main>{children}</main>
+          <ModalProvider />
+          {children}
         </body>
       </html>
     </ClerkProvider>
