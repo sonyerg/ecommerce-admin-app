@@ -1,11 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
 
-export default function Home() {
+export default function SetupPage() {
   return (
-    <div className="text-4xl font-bold flex justify-center items-center h-[60vh]">
-      <Button size="lg" className="uppercase">
-        Click me
-      </Button>
+    <div className="p-4">
+      <UserButton afterSignOutUrl="/" />
     </div>
   );
 }
