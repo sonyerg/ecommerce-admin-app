@@ -24,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -38,6 +39,8 @@ type SettingsFormValue = z.infer<typeof formSchema>;
 export function SettingsForm({ initialData }: SettingsFormProps) {
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
+
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -132,9 +135,10 @@ export function SettingsForm({ initialData }: SettingsFormProps) {
           </Button>
         </form>
       </Form>
+      <Separator />
       <ApiAlert
         title="NEXT_PUBLIC_API_URL"
-        description="test-desc"
+        description={`${origin}/api/${params.storeId}`}
         variant="public"
       />
     </>
