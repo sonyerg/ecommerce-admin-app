@@ -35,7 +35,13 @@ export default function AlertModal({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="flex pt-6 justify-end space-x-4">
+      <div
+        className="
+      flex
+      pt-6
+      justify-end
+      space-x-4"
+      >
         <Button disabled={loading} variant="outline" onClick={onClose}>
           Cancel
         </Button>

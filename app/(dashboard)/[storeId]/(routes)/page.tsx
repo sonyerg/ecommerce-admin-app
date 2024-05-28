@@ -11,5 +11,5 @@ export default async function DashboardPage({
     },
   });
 
-  return <div></div>;
+  return <div>{store?.name}</div>;
 }
