@@ -26,15 +26,15 @@ import {
 } from "@/components/ui/form";
 import { useOrigin } from "@/hooks/use-origin";
 
-interface SettingsFormProps {
-  initialData: Store;
-}
-
 const formSchema = z.object({
   name: z.string().min(1),
 });
 
 type SettingsFormValue = z.infer<typeof formSchema>;
+
+interface SettingsFormProps {
+  initialData: Store;
+}
 
 export function SettingsForm({ initialData }: SettingsFormProps) {
   const params = useParams();

@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
 import {
   Form,
   FormControl,
@@ -40,7 +39,6 @@ interface BillBoardFormProps {
 export function BillBoardForm({ initialData }: BillBoardFormProps) {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -64,7 +62,7 @@ export function BillBoardForm({ initialData }: BillBoardFormProps) {
 
       await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
-      toast.success("Store updated!");
+      toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -78,7 +76,7 @@ export function BillBoardForm({ initialData }: BillBoardFormProps) {
 
       await axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
-      toast.success(toastMessage);
+      // toast.success(toastMessage);
       window.location.assign("/");
     } catch (error) {
       toast.error("Make sure you removed all products and categories first");
