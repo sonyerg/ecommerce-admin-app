@@ -69,8 +69,8 @@ export function BillBoardForm({ initialData }: BillBoardFormProps) {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
 
-      router.refresh();
       router.push(`/${params.storeId}/billboards`);
+      router.refresh();
 
       toast.success(toastMessage);
     } catch (error) {
@@ -88,8 +88,8 @@ export function BillBoardForm({ initialData }: BillBoardFormProps) {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
 
-      router.refresh();
       router.push(`/${params.storeId}/billboards`);
+      router.refresh();
 
       toast.success("Billboard deleted.");
     } catch (error) {
