@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Category } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -23,6 +23,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -33,9 +42,10 @@ type CategoryFormValue = z.infer<typeof formSchema>;
 
 interface CategoryFormProps {
   initialData: Category | null;
+  billboards: Billboard[];
 }
 
-export function CategoryForm({ initialData }: CategoryFormProps) {
+export function CategoryForm({ initialData, billboards }: CategoryFormProps) {
   const params = useParams();
   const router = useRouter();
 
@@ -44,7 +54,7 @@ export function CategoryForm({ initialData }: CategoryFormProps) {
 
   const title = initialData ? "Edit Category" : "Create Category";
   const description = initialData ? "Edit a Category" : "Add a new Category";
-  const toastMessage = initialData ? "Category updated." : "Category created";
+  const toastMessage = initialData ? "Category updated." : "Category created.";
   const action = initialData ? "Save Changes" : "Create";
 
   const form = useForm<CategoryFormValue>({
@@ -92,7 +102,7 @@ export function CategoryForm({ initialData }: CategoryFormProps) {
 
       toast.success("Category deleted.");
     } catch (error) {
-      toast.error("Error deleting category");
+      toast.error("Error: Remove all products in this category first.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -139,7 +149,7 @@ export function CategoryForm({ initialData }: CategoryFormProps) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -147,6 +157,38 @@ export function CategoryForm({ initialData }: CategoryFormProps) {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="billboardId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billboard</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Select a billboard"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
