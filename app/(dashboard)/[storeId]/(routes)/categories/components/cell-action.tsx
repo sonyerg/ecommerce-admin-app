@@ -12,7 +12,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import axios from "axios";
@@ -31,23 +30,21 @@ export function CellAction({ data }: CellActionProps) {
 
   function onCopy(id: string) {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard.");
+    toast.success("Category ID copied to the clipboard.");
   }
 
   async function onDelete() {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
 
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/categories`);
       router.refresh();
 
-      toast.success("Billboard deleted.");
+      toast.success("Category deleted.");
     } catch (error) {
-      toast.error(
-        "Error: Make sure you removed all categories using this billboard."
-      );
+      toast.error("Error: Remove all products in this category first.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -78,7 +75,7 @@ export function CellAction({ data }: CellActionProps) {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />
