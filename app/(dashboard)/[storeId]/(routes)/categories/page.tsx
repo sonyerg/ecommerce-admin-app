@@ -19,7 +19,7 @@ export default async function CategoriesPage({
     },
   });
 
-  const formattedcategories: CategoryColumn[] = categories.map((item) => ({
+  const formattedCategories: CategoryColumn[] = categories.map((item) => ({
     id: item.id,
     name: item.name,
     createdAt: format(item.createdAt, "d MMMM yyyy"),
@@ -28,7 +28,7 @@ export default async function CategoriesPage({
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <CategoryClient data={formattedcategories} />
+        <CategoryClient data={formattedCategories} />
       </div>
     </div>
   );
