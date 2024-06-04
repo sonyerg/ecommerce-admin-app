@@ -97,10 +97,11 @@ export function SettingsForm({ initialData }: SettingsFormProps) {
         <Button
           disabled={loading}
           variant="destructive"
-          size="icon"
+          size="sm"
           onClick={() => setOpen(true)}
         >
-          <Trash className="h-4 w-4" />
+          <Trash className="mr-2 h-4 w-4" />
+          Delete Store
         </Button>
       </div>
       <Separator />
