@@ -30,21 +30,21 @@ export function CellAction({ data }: CellActionProps) {
 
   function onCopy(id: string) {
     navigator.clipboard.writeText(id);
-    toast.success("Category ID copied to the clipboard.");
+    toast.success("Size ID copied to the clipboard.");
   }
 
   async function onDelete() {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
 
-      router.push(`/${params.storeId}/categories`);
+      router.push(`/${params.storeId}/sizes`);
       router.refresh();
 
-      toast.success("Category deleted.");
+      toast.success("Size deleted.");
     } catch (error) {
-      toast.error("Error: Remove all products in this category first.");
+      toast.error("Error: Remove all products in this size first.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -74,9 +74,7 @@ export function CellAction({ data }: CellActionProps) {
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/categories/${data.id}`)
-            }
+            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Update
