@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb";
 
 import { SizeForm } from "./components/size-form";
 
-export default async function CategoryPage({
+export default async function SizePage({
   params,
 }: {
   params: { sizeId: string };
