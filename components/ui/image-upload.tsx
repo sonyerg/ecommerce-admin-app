@@ -27,7 +27,8 @@ export default function ImageUpload({
   }, []);
 
   const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+    const newUrl = result.info.secure_url;
+    onChange(newUrl);
   };
 
   if (!isMounted) {
@@ -38,7 +39,10 @@ export default function ImageUpload({
     <div>
       <div className="flex items-center gap-4 mb-4">
         {value.map((url) => (
-          <div key={url} className="relative w-[300px] h-[200px]">
+          <div
+            key={url}
+            className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
+          >
             <div className="absolute z-10 top-2 right-2">
               <Button
                 type="button"
@@ -49,12 +53,7 @@ export default function ImageUpload({
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
-            <Image
-              fill
-              className="object-cover rounded-sm"
-              alt="image"
-              src={url}
-            />
+            <Image fill className="object-cover" alt="image" src={url} />
           </div>
         ))}
       </div>
