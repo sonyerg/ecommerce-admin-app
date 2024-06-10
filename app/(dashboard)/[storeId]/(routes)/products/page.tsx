@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
-import { formatter } from "@/lib/utils";
 
 import ProductClient from "./components/client";
 import { ProductColumn } from "./components/columns";
+import { formatter } from "@/lib/utils";
 
 export default async function ProductsPage({
   params,
