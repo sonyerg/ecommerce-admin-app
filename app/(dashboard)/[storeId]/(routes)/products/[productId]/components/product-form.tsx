@@ -35,12 +35,19 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  images: z.object({ url: z.string() }).array(),
-  price: z.coerce.number().min(1),
-  categoryId: z.string().min(1),
-  colorId: z.string().min(1),
-  sizeId: z.string().min(1),
+  name: z.string().min(1, { message: "Name is required" }),
+  images: z
+    .object({
+      url: z.string().url({ message: "At least one image is required" }),
+    })
+    .array()
+    .min(1, { message: "At least one image is required" }),
+  price: z.coerce
+    .number()
+    .min(1, { message: "Price must be at least more than 0" }),
+  categoryId: z.string().min(1, { message: "Category is required" }),
+  colorId: z.string().min(1, { message: "Color is required" }),
+  sizeId: z.string().min(1, { message: "Size is required" }),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
 });
