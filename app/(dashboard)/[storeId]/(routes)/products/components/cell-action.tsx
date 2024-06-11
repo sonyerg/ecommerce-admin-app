@@ -5,21 +5,20 @@ import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
-import { BillboardColumn } from "./columns";
+import { ProductColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import axios from "axios";
 import AlertModal from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: ProductColumn;
 }
 
 export function CellAction({ data }: CellActionProps) {
@@ -31,23 +30,21 @@ export function CellAction({ data }: CellActionProps) {
 
   function onCopy(id: string) {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard.");
+    toast.success("Product ID copied to the clipboard.");
   }
 
   async function onDelete() {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
 
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/products`);
       router.refresh();
 
-      toast.success("Billboard deleted.");
+      toast.success("Product deleted.");
     } catch (error) {
-      toast.error(
-        "Error: Make sure you removed all categories using this billboard."
-      );
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -78,7 +75,7 @@ export function CellAction({ data }: CellActionProps) {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/products/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />
