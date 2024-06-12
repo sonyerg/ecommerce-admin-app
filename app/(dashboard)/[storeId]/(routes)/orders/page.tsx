@@ -27,20 +27,20 @@ export default async function OrdersPage({
     },
   });
 
-  const formattedOrders: OrderColumn[] = orders.map((item) => ({
-    id: item.id,
-    phone: item.phone,
-    address: item.address,
-    products: item.orderItems
+  const formattedOrders: OrderColumn[] = orders.map((order) => ({
+    id: order.id,
+    phone: order.phone,
+    address: order.address,
+    products: order.orderItems
       .map((orderItem) => orderItem.product.name)
       .join(", "),
     totalPrice: formatter.format(
-      item.orderItems.reduce((total, orderItem) => {
+      order.orderItems.reduce((total, orderItem) => {
         return total + Number(orderItem.product.price);
       }, 0)
     ),
-    isPaid: item.isPaid,
-    createdAt: format(item.createdAt, "d MMMM yyyy"),
+    isPaid: order.isPaid,
+    createdAt: format(order.createdAt, "d MMMM yyyy"),
   }));
 
   return (
