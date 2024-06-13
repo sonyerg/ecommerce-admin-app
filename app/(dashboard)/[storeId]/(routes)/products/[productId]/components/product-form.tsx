@@ -186,7 +186,7 @@ export function ProductForm({
                     value={field.value.map((image) => image.url)}
                     disabled={loading}
                     onChange={(url) =>
-                      field.onChange([...field.value, { url }])
+                      field.onChange((field.value = [...field.value, { url }]))
                     }
                     onRemove={
                       (url) =>
