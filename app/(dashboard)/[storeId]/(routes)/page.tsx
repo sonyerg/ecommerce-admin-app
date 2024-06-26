@@ -9,6 +9,8 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getStockCount } from "@/actions/get-stock-count";
+import Overview from "@/components/overview";
+import { getGraphData } from "@/actions/get-graph-data";
 
 export const revalidate = 0;
 
@@ -20,13 +22,14 @@ export default async function DashboardPage({
   const totalRevenue = await getTotalRevenue(params.storeId);
   const salesCount = await getSalesCount(params.storeId);
   const stockCount = await getStockCount(params.storeId);
+  const graphData = await getGraphData(params.storeId);
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <Heading title="Dashboard" description="Overview of your store" />
         <Separator />
-        <div className="lg:grid lg:grid-cols-3 gap-4">
+        <div className="lg:grid lg:grid-cols-3 gap-4 lg:space-y-0 space-y-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -61,6 +64,14 @@ export default async function DashboardPage({
             </CardContent>
           </Card>
         </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-6">
+            <Overview data={graphData} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
