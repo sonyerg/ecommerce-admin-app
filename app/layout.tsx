@@ -10,6 +10,7 @@ import { ToastProvider } from "@/providers/toast-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 
 import "./globals.css";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export default function RootLayout({
   children,
@@ -20,9 +21,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <ToastProvider />
-          <ModalProvider />
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ToastProvider />
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
